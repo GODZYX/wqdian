@@ -1,61 +1,84 @@
-# 微企点 Css规范 #
+# 微企点 文章管理平台 Css规范 #
 ------------------------------
-[TOC]
-## 文件名
-使用小写字母，复合词以 - 分隔; 例如 nav.css , login-nav.css , login-page
-## CSS 格式
-- 不允许使用行内样式和style
-- 选择器单独占一行，每个属性占一行，避免用单行CSS格式。属性声明要有缩进。
-- 选择器要尽可能短，并且尽量限制组成选择器的元素个数，建议不要超过 3 
+<!-- [TOC] -->
 
+## 基本命名
+- 所有class或id的命名全部使用小写字母，复合词以 - 分隔；**禁止使用**例如： ~~“.loginNav”~~，~~“.loginPage”~~，~~“#contentPage”~~ 等驼峰命名方式进行命名。
 
-- 建议： 关联或孩子样式要增加2-4个空格的缩进。这样有利于分层查看和组织，可读性更好。
-- 给一个样式指定多个选择器时，把每个选择器单独放一行。
-- 让规则越具体越好
-  尽量不要使用 ul li a 这样长的选择符，最好使用  .list-anchor 之类的选择符。
-- 避免使用后代选择符
-  通常处理后代选择符开销最高，使用字选择符更高效，最好使用下一条代替。
-- 避免使用标签子选择符
-  如果有如： #header > li > a，这样基于子标签的自选择符，那么应该使用一个class来关联每个元素如： .header-anchor。尽量使用具体的类代替子选择符。
+- 对于放到component层，或者单独独立出来的一个模块，最外层class或者id的命名，一定要以“wqd-”开头。例如： “.wqd-tips-mask”，“.wqd-tips”，“.wqd-list”等。
 
-```css
-.post-list li a{
-	color:#A8A8A8;
-}
-	.post-list li a:hover{
-		color:#000;
-		text-decoration:none;
-	}
-	.post-list li .author a,
-	.post-list li .author a:hover{
-		color:#F30;
-		text-transform:uppercase;
-	}
+- **注意**：在以“wqd-”开头方式命名时，使用时一定要先进行一次全文检索，防止重名。
+
+## 书写规范
+1. Css代码书写时，选择器的第一个元素一定是以“wqd-”开头方式命名的。
+2. Css代码书写时，选择器的第一个元素一定是这一部分模块的最外层class或者id。
+3. Css代码书写时，对于每一个模块的书写，统一都要增加注释，注释方式统一为：“/* */”这种方式。
+```
+/* good css below */
+    /* tips css start */
+    .wqd-tips .tips-hd {...}
+    .wqd-tips .tips-hd .hd-title {...}
+    .wqd-tips .tips-hd .hd-more {...}
+        /* tips warn */
+    .wqd-tips.warning {...}
+        /* tips del */
+    .wqd-tips.del {...}
+    ......
+    /* tips css end */
+    
+/* bad css below */
+    .wqd-tips .tips-hd {...}
+    .wqd-tips .tips-hd .hd-title {...}
+    .wqd-tips .tips-hd .hd-more {...}
+    .wqd-tips.warning {...}
+    .wqd-tips.del {...}
+    ......
+
+    // tips css
+    .wqd-tips .tips-hd {...}
+    .wqd-tips .tips-hd .hd-title {...}
+    .wqd-tips .tips-hd .hd-more {...}
+    // tips warn
+    .wqd-tips.warning {...}
+    .wqd-tips.del {...}
+    ......
+```
+4. Css代码书写时，选择器中组成的元素个数，尽量不要超过3个。
+```
+/* good css below */
+    .wqd-list .list-hd {...}
+    .wqd-list .list-hd .hd-title {...}
+    .wqd-list .list-hd .hd-more {...}
+
+/* bad css below */
+    .wqd-list .list-hd .list-content .hd-title {...}
+    .wqd-list .list-hd .list-content .list-btn .hd-title {...}
+```
+5. Css代码书写时，样式书写顺序和事例如下：
+    1. 位置属性(display, float, position, top, bottom, left, right, z-index等)
+    2. 大小(width, height, padding, margin)
+    3. 文字系列(font, line-height, color, text-align, letter-spacing等)
+    4. 背景(background, border等)
+    5. 其他(animation, transition等) 
+```
+/* good css below */
+    .wqd-tips {position:fixd;top:0;z-index:1001;color:#fff;;background-color:#fff;border-radius:3px;}
+
+/* bad css below */
+    .wqd-tips {border-radius:3px;top:0;position:fixd;z-index:1001;color:#fff;;background-color:#fff;}
+    .wqd-tips {z-index:1001;top:0;position:fixd;border-radius:3px;color:#fff;;background-color:#fff;}
+```
+6. Css代码书写时，样式内容跟选择器之间一定要存在空格，属性值设置时，之间一定不能有空格。
+```
+/* good css below */
+    .wqd-tips {width:100px;}
+
+/* bad css below */
+    .wqd-tips{width:100px;}
+    .wqd-tips {width: 100px;}
+    .wqd-tips { width:100px; }
 ```
 
-###id 和类的命名
-- 为 id 和样式类使用有意义或通用的名字，避免由于 css 命名更改引起的不必要的文档或模板改变；例如
-```css
-    /* 不推荐： 无意义 */
-    #yee-1901 {}
 
-    /* 不推荐： 表现层的命名 */
-    .button-green {}
-    /* 推荐: 具体 */
-    #gallery {}
-    #login {}
-    .video {}
 
-    /* 推荐: 通用 */
-    .effect {}
-    .alt {}
-    id 和 class 的命名长度应该适中，不要太简略也不要太详细；例如
-
-    /* 不推荐 */
-    #navigation {}
-    .atr {}
-    /* 推荐 */
-    #nav {}
-    .author {}
-```
 
