@@ -12,6 +12,21 @@
 ## 书写规范
 1. Css代码书写时，选择器的第一个元素一定是以“wqd-”开头方式命名的。
 2. Css代码书写时，选择器的第一个元素一定是这一部分模块的最外层class或者id。
+```
+/* good css below */
+    .wqd-tips * {...}
+    .wqd-tips span {...}
+    .wqd-tips title {...}
+    .wqd-tips .tips-hd {...}
+    ......
+    
+/* bad css below */
+    * {...}
+    span {...}
+    title {...}
+    .tips-hd {...}
+    ......
+```
 3. Css代码书写时，对于每一个模块的书写，统一都要增加注释，注释方式统一为：“/* */”这种方式。
 ```
 /* good css below */
