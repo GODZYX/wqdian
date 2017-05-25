@@ -9,6 +9,18 @@
 
 - **注意**：在以“wqd-”开头方式命名时，使用时一定要先进行一次全文检索，防止重名。
 
+## 添加图标方式
+- 所有的图标，全部改用背景图引入方式，引入过程中，全部使用i标签包含。具体书写格式如下：
+-   1. 对应html代码：
+```
+    <div><i class='icon'><i>标题</div>
+```
+-   2. 对应的css代码：**注意**：禁止添加，如：“background-position”,“background-size”之类的属性值。
+```
+    .icon {background-image: url(../images/bd-qq.png);background-repeat:no-repeat;width:20px;height:20px;}
+```
+
+
 ## 书写规范
 1. Css代码书写时，选择器的第一个元素一定是以“wqd-”开头方式命名的。
 2. Css代码书写时，选择器的第一个元素一定是这一部分模块的最外层class或者id。
